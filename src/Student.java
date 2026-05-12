@@ -1,7 +1,7 @@
 public class Student {
-    private String name;
+    private final String name;
     private int room;
-    private String college;
+    private final String college;
 
     public Student(String name,int room,String college){
         this.name=name;
@@ -11,7 +11,7 @@ public class Student {
 
     public String toString(){
         String aux="";
-        aux+="Student: " + this.name + "\n";
+        aux+="\nStudent: " + this.name + "\n";
         aux+="Dorm number: " + this.room + "\n";
         aux+="College: " + this.college + "\n\n";
         return aux;
@@ -21,7 +21,10 @@ public class Student {
         return room;
     }
 
+    //setting the room for when (if) the student will move
     public void setRoom(int room) {
         this.room = room;
     }
+
+
 }
