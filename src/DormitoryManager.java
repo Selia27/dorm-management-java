@@ -1,4 +1,6 @@
 import java.util.*;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class DormitoryManager {
     private final int capacity;
@@ -32,23 +34,27 @@ public class DormitoryManager {
         Dorm found=findRoom(searched);
         if(found!=null && found.getOccupancy()<found.getCapacity()){
             found.addStudent(st);
+        } else {
+            System.out.println("The room does not exist in the system!");
         }
     }
 
-    public void availableRooms(){
-        System.out.println("Available rooms are:");
+    public String availableRooms(){
+        String aux="";
+        aux+="Available rooms are:\n";
         for(Dorm dorm: d){
             if(dorm.getOccupancy()<dorm.getCapacity()){
                 int n=dorm.getCapacity()-dorm.getOccupancy();
-                System.out.println("Room " + dorm.getNumber() + " with " + n + " place(s)");
+                aux+="Room " + dorm.getNumber() + " with " + n + " place(s)\n";
             }
         }
+        return aux;
     }
 
     public void moveStudent(Student st,int oldNo, int newNo){
         Dorm dOld=findRoom(oldNo);
         Dorm dNew=findRoom(newNo);
-        if(dOld!=null && dNew!=null){
+        if(st!=null && dOld!=null && dNew!=null){
             if(dNew.getOccupancy()<dNew.getCapacity()){
                 dNew.addStudent(st);
                 dOld.removeStudent(st);
@@ -59,10 +65,22 @@ public class DormitoryManager {
 
     public String toString(){
         String aux="";
-        aux+="Dormitory name: " + this.name + "\n";
+        aux+="Dormitory name: " + this.name + "\n\n";
         for (Dorm dorm : d) {
             aux += dorm.toString();
         }
         return aux;
+    }
+
+    public void export(String file) {
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write(this.availableRooms());
+            writer.close();
+            System.out.println("Data successfully saved to " + file);
+
+        } catch (IOException e) {
+            System.err.println("An error occurred while saving the file: " + e.getMessage());
+        }
     }
 }

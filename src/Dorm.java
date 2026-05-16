@@ -3,7 +3,6 @@ import java.util.*;
 public class Dorm {
     private final int number;
     private final int capacity;
-    private int occupancy;
 
     public Dorm(int number,int capacity){
         this.number=number;
@@ -15,7 +14,6 @@ public class Dorm {
     public void addStudent(Student st){
         if(s.size()<capacity) {
             s.add(st);
-            occupancy=occupancy+1;
         }
         else System.out.println("This room is full!");
     }
@@ -24,12 +22,21 @@ public class Dorm {
         String aux="";
         aux+="Number: " + this.number + "\n";
         aux+="Room capacity: " + this.capacity + "\n";
-        aux+="Room occupancy: " + this.occupancy + "\n";
-        for (Student student : s) {
-            aux += student.toString();
+        aux+="Room occupancy: " + s.size() + "\n";
+        for (Student st : s) {
+            aux += st.toString();
         }
         aux+="\n";
         return aux;
+    }
+
+    public Student getStudent(String name, String college){
+        for (Student st: s){
+            if(st.getName().equals(name) && st.getCollege().equals(college)){
+                return st;
+            }
+        }
+        return null;
     }
 
     public int getNumber(){
@@ -40,6 +47,6 @@ public class Dorm {
         s.remove(st);
     }
 
-    public int getOccupancy(){ return occupancy;}
+    public int getOccupancy(){ return s.size();}
     public int getCapacity(){return capacity;}
 }

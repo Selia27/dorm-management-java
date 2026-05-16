@@ -20,6 +20,8 @@ public class Student {
     public int getRoom() {
         return room;
     }
+    public String getName(){ return name;}
+    public String getCollege(){ return college;}
 
     //setting the room for when (if) the student will move
     public void setRoom(int room) {
